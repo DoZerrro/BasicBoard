@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.miniproject.board.mapper.UserMapper">
+    <select id="selectUserInfo" resultType="com.miniproject.board.dto.UserInfoDto">
+        SELECT u.userId AS userId
+             , ur.role_Id AS roleId
+             , r.name AS roleName
+             , u.email AS email
+             , u.name AS userName
+             , u.password AS password
+        FROM user u
+        JOIN user_role ur ON u.userId = ur.user_id
+        JOIN role r ON ur.role_id = r.role_id
+        WHERE email = #{email}
+    </select>
+
+    <select id="selectEmailList" resultType="string">
+        SELECT email
+        FROM user
+    </select>
+
+    <insert id="insertUserInfo">
+        INSERT INTO user (
+               email
+             , name
+             , password
+             , regdate
+        ) VALUES (
+             #{email}
+             , #{name}
+             , #{password}
+             , NOW()
+        );
+    </insert>
+
+    <insert id="insertUserRole">
+        INSERT INTO user_role
+        VALUES (
+                #{userId}
+                , #{roleId}
+               );
+    </insert>
+</mapper>

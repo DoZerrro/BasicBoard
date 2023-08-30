@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="board.css">
+    <title>게시판</title>
+</head>
+<body>
+    <section class="board">
+        <div class="page-title">
+            <div class="container">
+                <h3>글 목록보기</h3>
+            </div>
+        </div>
+        <div class="login-info">
+            <div class="container">
+                <span class="login-info-user" th:if="${userInfo != null}">
+                    <span th:text="${userInfo.userName} + 님"></span>
+                </span>
+                <span class="login-info-login" th:if="${userInfo == null}">
+                    <a href="/loginForm">로그인 </a>
+                </span>
+                <span class="login-info-logout" th:if="${userInfo != null}">
+                    <a href="/logout">로그아웃</a>
+                </span>
+                <span class="login-info-signup" th:if="${userInfo == null}">
+                    <a href="/userRegForm">회원가입</a>
+                </span>
+            </div>
+        </div>
+
+        <!-- 게시판 목록 영역 -->
+        <div id="board-list">
+            <div class="container">
+                <table class="board-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="th-num">번호</th>
+                            <th scope="col" class="th-title">제목</th>
+                            <th scope="col" class="th-viewCnt">조회수</th>
+                            <th scope="col" class="th-viewCnt">작성자</th>
+                            <th scope="col" class="th-date">등록일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="board, i : ${boardList}">
+                            <td th:text="${i.index+1}"></td>
+                            <th>
+                                <a th:href="@{/board/(id=${board.seq})}" th:text="${board.title}"></a>
+                            </th>
+                            <td th:text="${board.viewCnt}"></td>
+                            <td th:text="${board.name}"></td>
+                            <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="writerForm">
+            <div class="container">
+                <span>
+                    <a href="/writerForm">글쓰기</a>
+                </span>
+            </div>
+        </div>
+        <div class="page-index">
+            <div class="container">
+                <span th:each="num : ${#numbers.sequence(1, pageCnt)}">
+                    <a th:href="@{/(page=${num})}" th:text="${num}"></a>
+                </span>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

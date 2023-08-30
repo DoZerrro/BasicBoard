@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원가입</title>
+</head>
+<body>
+    <h1>회원가입</h1>
+    <form action="/userReg" method="post">
+        이름: <label> <input type="text" name="name"/> </label> <br>
+        email: <label> <input type="text" name="email"/></label> <br>
+        password: <label> <input type="password" name="password"/> </label> <br>
+        <label><input type="radio" name="role" value="1" checked/>개인</label>
+        <label><input type="radio" name="role" value="2"/>관리자</label> <br>
+        <input type="submit" value="회원가입"/>
+    </form>
+</body>
+</html>
